@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ category }}</h1>
+
+{% for post in posts_in_category %}
+<li><a href="{% url 'post_detail' post.pk %}"> {{ post.title }}</li></a>
+{% endfor %}
+{% endblock content %}

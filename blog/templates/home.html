@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Blog made with Django</h1>
+<ul>
+    {% for post in post_list %}
+    <li><a href=" {% url 'post_detail' post.pk %}">{{ post.title }} | written by {{ post.author }} </a> <br />
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock content %}

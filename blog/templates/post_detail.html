@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>{{ post.title }}</h1>
+<small>by {{ post.author }} </small> <br />
+<hr>
+<br />
+
+{{ post.body }}
+
+<br /><br />
+<small>category:
+    {% for cat in cats %}
+    <a href="{% url 'category_detail' cat.pk %}"> {{ cat.name }}</a>
+    {% endfor %}</small>
+
+<br /><br />
+<a href="{% url 'post_edit' post.pk %}">Edit</a> | <a href="{% url 'post_delete' post.pk %}">Delete</a>
+<br /><br />
+<a href="{% url 'home' %}" class="btn btn-secondary">Back</a>
+
+{% endblock content %}
