@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.db.models import Avg
 from django.urls import reverse_lazy
@@ -37,7 +38,7 @@ def RatePostView(request, pk):
     )
     post_rating.save()
 
-    return reverse("post_detail", kwargs={"pk": pk})
+    return HttpResponseRedirect(reverse("post_detail", kwargs={"pk": pk}))
 
 
 class CategoryListView(ListView):
