@@ -1,10 +1,12 @@
 from django.shortcuts import render
+from django.urls import reverse
+from django.db.models import Avg
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .forms import PostForm, UpdateForm
 
-from .models import Post, Category
+from .models import Post, Category, Rating
 
 
 class HomeView(ListView):
@@ -15,11 +17,27 @@ class HomeView(ListView):
 def PostDetailView(request, pk):
     post = Post.objects.get(id=pk)
     cats = post.category.all().values("name", "pk")
+    rating = Rating.objects.filter(post=post).aggregate(Avg("rating"))["rating__avg"]
     context = {
         "post": post,
         "cats": cats,
+        "rating": rating,
     }
     return render(request, "post_detail.html", context)
+
+
+# def RatePostView(request, pk):
+#     return render(request, "post_rate.html")
+
+
+def RatePostView(request, pk):
+    post = Post.objects.get(id=pk)
+    post_rating = Rating(
+        rating=request.POST["rate"], post_id=post.pk, user=request.user
+    )
+    post_rating.save()
+
+    return reverse("post_detail", kwargs={"pk": pk})
 
 
 class CategoryListView(ListView):
