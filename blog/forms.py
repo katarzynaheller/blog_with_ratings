@@ -15,6 +15,13 @@ class PostForm(forms.ModelForm):
         }
 
 
+class Rating(forms.ModelForm):
+    model = Rating
+    fields = "rating"
+
+    widgets = {"rating": forms.IntegerField()}
+
+
 class UpdateForm(forms.ModelForm):
     class Meta:
         model = Post
