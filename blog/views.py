@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.db.models import Avg
@@ -64,19 +65,23 @@ class CategoryDetailView(DetailView):
         return context
 
 
-class CreatePostView(CreateView):
+class CreatePostView(LoginRequiredMixin, CreateView):
     model = Post
-    form_class = PostForm
     template_name = "post_new.html"
+    fields = ("title", "body", "category")
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
 
-class UpdatePostView(UpdateView):
+class UpdatePostView(LoginRequiredMixin, UpdateView):
     model = Post
     form_class = UpdateForm
     template_name = "post_edit.html"
 
 
-class DeletePostView(DeleteView):
+class DeletePostView(LoginRequiredMixin, DeleteView):
     model = Post
     template_name = "post_delete.html"
     success_url = reverse_lazy("home")

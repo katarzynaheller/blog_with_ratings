@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Django blog</title>
+    <title>{% block title %}Django blog{% endblock title %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
@@ -26,23 +26,38 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            Account
+                            Posts
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#"> Log in</a>
+                            <li><a class="dropdown-item" href="{% url 'post_new' %}">Create</a>
                             </li>
-                            <li><a class="dropdown-item" href="{% url 'signup' %}">Sign up</a></li>
+                            <li><a class="dropdown-item" href="#">Edit</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="{% url 'post_new' %}">Create new post</a></li>
+                            <li><a class="dropdown-item" href="#">Delete</a></li>
                         </ul>
                     </li>
                 </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
+                {% if user.is_authenticated %}
+                <div class="dropdown text-end">
+                    <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ user.username }}
+                    </a>
+                    <div class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                        <a class="dropdown-item" href="{% url 'password_change'%}">
+                            Change password</a>
+                        <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a>
+                    </div>
+                </div>
+                {% else %}
+                </ul>
+                <div class="text-end">
+                    <a href="{% url 'login' %}" class="btn btn-dark">Log In</a>
+                    <a href="{% url 'signup' %}" class="btn btn-light">Sign Up</a>
+                </div>
+                {% endif %}
             </div>
         </div>
     </nav>
