@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.db.models import Avg
@@ -15,20 +15,26 @@ class HomeView(ListView):
     template_name = "home.html"
 
 
-def PostDetailView(request, pk):
-    post = Post.objects.get(id=pk)
-    cats = post.category.all().values("name", "pk")
-    rating = Rating.objects.filter(post=post).aggregate(Avg("rating"))["rating__avg"]
-    context = {
-        "post": post,
-        "cats": cats,
-        "rating": rating,
-    }
-    return render(request, "post_detail.html", context)
+class PostDetailView(DetailView):
+    model = Post
+    template_name = "post_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        post = self.get_object()
+        cats = Category.objects.filter(post=post.pk)
+        context["cats"] = cats
+        return context
 
 
-# def RatePostView(request, pk):
-#     return render(request, "post_rate.html")
+# def PostDetailView(request, pk):
+#     post = Post.objects.get(id=pk)
+#     cats = post.category.all().values("name", "pk")
+#     context = {
+#         "post": post,
+#         "cats": cats,
+#     }
+#     return render(request, "post_detail.html", context)
 
 
 def RatePostView(request, pk):
