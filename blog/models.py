@@ -27,7 +27,7 @@ class Post(models.Model):
     class Meta:
         ordering = ["-pub_date"]
 
-    def average_rating(self) -> float:
+    def average_rating(self):
         return Rating.objects.filter(post=self).aggregate(Avg("rating"))["rating__avg"]
 
     def __str__(self):
