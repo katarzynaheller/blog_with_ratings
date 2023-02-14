@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils import timezone
 from django.conf import settings
-import datetime
 
 
 class Category(models.Model):
@@ -22,7 +21,7 @@ class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     body = models.TextField()
     category = models.ManyToManyField(Category)
-    pub_date = models.DateTimeField(default=datetime.datetime.now)
+    pub_date = models.DateTimeField(default=timezone.now)
 
     class Meta:
         ordering = ["-pub_date"]
