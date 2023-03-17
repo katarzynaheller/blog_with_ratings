@@ -9,8 +9,10 @@
 
 {{ post.body }}
 <br />
-{% if post.average > 1 %}
-<p>Average rating: {{ post.average_rating|floatformat:1 }}</p>
+{% if post.average_rating > 1%}
+<p>Average rating: {{ post.average_rating|floatformat:1}}</p>
+{% else %}
+{{ post.average_rating|default_if_none:""}}
 {% endif %}
 <br />
 {% for cat in cats %}
