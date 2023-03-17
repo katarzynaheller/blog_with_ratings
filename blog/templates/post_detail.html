@@ -9,8 +9,8 @@
 
 {{ post.body }}
 <br />
-{% if post.average is not None %}
-<p>Average rating: {{ post.average_rating|floatformat:2 }}</p>
+{% if post.average > 1 %}
+<p>Average rating: {{ post.average_rating|floatformat:1 }}</p>
 {% endif %}
 <br />
 {% for cat in cats %}
