@@ -6,8 +6,6 @@ from django.urls import reverse
 from .models import Post
 from accounts.models import CustomUser
 
-# how to check if user.is_autehticated works correctly
-
 
 class PostDetailTests(TestCase):
     def setUp(self):
