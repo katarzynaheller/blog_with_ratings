@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 
@@ -61,8 +62,10 @@
 <label for="1">Poor</label><br><br>
 <a href="{% url 'login' %}" class="btn btn-dark">Rate this post </a>
 <br />
-<p><i>*To rate this post you need to <a href="{% url 'login' %}"> log in </a></i></p>
+<p><i>*To rate this post you need to <mark><a href="{% url 'login' %}"> log in </a></mark></i></p>
 
 {% endif %}
 <hr>
+
+<img src="static/images/example_logo.jpg">
 {% endblock content %}

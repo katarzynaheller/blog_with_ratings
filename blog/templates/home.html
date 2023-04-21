@@ -1,11 +1,27 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Blog made with Django</h1>
-<ul>
-    {% for post in post_list %}
-    <li><a href=" {% url 'post_detail' post.pk %}">{{ post.title }} | written by {{ post.author }} </a> <br />
-    </li>
-    {% endfor %}
-</ul>
+<div class="container p-5 my-5 border">
+    <h1><mark>Top rated</mark> posts</h1>
+    <ul>
+        {% for post in post_list %}
+        <li><a href=" {% url 'post_detail' post.pk %}">{{ post.title }} | written by {{ post.author }} </a> <br />
+        </li>
+        {% endfor %}
+
+
+    </ul>
+</div>
+
+<div class="container p-5 my-5 border">
+    <h1><mark>Top visited</mark> posts</h1>
+    <ul>
+        {% for post in post_list %}
+        <li><a href=" {% url 'post_detail' post.pk %}">{{ post.title }} | written by {{ post.author }} </a> <br />
+        </li>
+        {% endfor %}
+
+
+    </ul>
+</div>
 
 {% endblock content %}

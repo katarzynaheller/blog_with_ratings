@@ -1,4 +1,7 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
+
 from .views import (
     HomeView,
     CategoryListView,
@@ -19,4 +22,4 @@ urlpatterns = [
     path("post/new/", CreatePostView.as_view(), name="post_new"),
     path("category/", CategoryListView.as_view(), name="category_list"),
     path("category/<int:pk>/", CategoryDetailView.as_view(), name="category_detail"),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
