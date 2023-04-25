@@ -1,4 +1,4 @@
-# blog_with_ratings
+# Blog with ratings
 Simple blog project with rating option for registered users. Made with crispy forms and Bootstrap. Covered with basic unittests.
 
 
