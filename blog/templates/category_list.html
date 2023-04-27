@@ -1,11 +1,34 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<ul>
-    {% for category in category_list %}
-    <li><a href="{% url 'category_detail' category.pk %}"> {{ category.name }} </a><br />
-    </li>
-    {% endfor %}
-</ul>
+{% comment %} {% for category in category_list %}
+<div class="card border-light mb-3 mt-3" style="max-width: 30vw;">
+    <div class="card-header">Library of content:</div>
+    <div class="card-body">
+      <h5 class="card-title">"{{category.name}}"</h5>
+      <p class="card-text">{% for post in posts_in_category %}
+        <ul>
+            <li><a href="{% url 'post_detail' post.pk %}"> {{ post.title }}</li></a>
+        </ul>
+        {% endfor %}</p>
+    </div>
+
+{% endfor %} {% endcomment %}
+<h3>Library of content</h3>
+{% for category in category_list %}
+
+<div class="card border-light mb-3 mt-3" style="max-width: 70%;">
+    <div class="card-header">Category:
+        <div class="card-body">
+            <h5 class="card-title">{{category.name}}</h5>
+            <ul>
+                {% for post in category.post_set.all %}
+                <li><a href="{% url 'post_detail' post.pk %}">{{post.title}}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endfor %}
 
 {% endblock content %}

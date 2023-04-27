@@ -5,10 +5,10 @@
 <div class="masthead" style="background-image: url('{% static 'images/blog_background.jpg' %}')">
     <div class="color-overlay d-flex flex-column justify-content-center align-items-center">
         <h1>Simple blog</h1>
-        <p> Here you can describe what this blog is about.
-            <br>And encourage visitors to register as authors.
+        <p style="text-align: center;"> Here you can describe what this blog is about. And encourage visitors to
+            register as authors.
         </p>
-        <a href="{% url 'signup' %}" class="btn btn-dark btn-sm active" role="button" aria-pressed="true">Write
+        <a href="{% url 'post_new' %}" class="btn btn-dark btn-sm active" role="button" aria-pressed="true">Write
             a
             story</a>
     </div>
@@ -16,7 +16,8 @@
 </div>
 
 <div class="container p-5 my-5 border">
-    <h2><mark>Top rated</mark> posts</h2>
+    <h2><mark>Top rated posts</mark></h2>
+    <br>
     <ul>
         {% for post in post_list %}
         <li><a href=" {% url 'post_detail' post.pk %}">{{ post.title }} | written by {{ post.author }} </a> <br />
@@ -28,7 +29,8 @@
 </div>
 
 <div class="container p-5 my-5 border">
-    <h2><mark>Top visited</mark> posts</h2>
+    <h2><mark>Top rated authors</mark></h2>
+    <br>
     <ul>
         {% for post in post_list %}
         <li><a href=" {% url 'post_detail' post.pk %}">{{ post.title }} | written by {{ post.author }} </a> <br />

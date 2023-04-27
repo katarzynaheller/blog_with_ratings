@@ -32,6 +32,11 @@ a {
     color: grey;
 }
 
+
+.rating {
+    --bs-body-bg: #decbc7;
+}
+
 @media(max-width: 768px) {
     .masthead {
         min-height: 30vh;
