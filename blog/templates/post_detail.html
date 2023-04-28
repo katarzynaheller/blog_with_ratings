@@ -27,7 +27,7 @@
         <a class="btn btn-outline-dark" href="{% url 'post_delete' post.pk %}" type="button">Delete</a>
     </div>
     <div class="container p-5 my-5 border">
-        {% if post.average_rating > 1%}
+        {% if post.average_rating > 1 %}
         <p><mark>Current rating: {{ post.average_rating|floatformat:1}}</mark></p>
         {% else %}
         {{ post.average_rating|default_if_none:""}}

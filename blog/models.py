@@ -14,6 +14,9 @@ class Category(models.Model):
 
     def get_absolute_url(self):
         return reverse("category", kwargs={"pk": self.pk})
+    
+    class Meta:
+        verbose_name_plural = 'Categories'
 
 
 class Post(models.Model):

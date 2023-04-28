@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-
+<!-- Hero section -->
 <div class="masthead" style="background-image: url('{% static 'images/blog_background.jpg' %}')">
     <div class="color-overlay d-flex flex-column justify-content-center align-items-center">
         <h1>Simple blog</h1>
@@ -14,30 +14,27 @@
     </div>
 </div>
 </div>
-
+<!-- Posts ordered by date -->
 <div class="container p-5 my-5 border">
-    <h2><mark>Top rated posts</mark></h2>
+    <h2><mark>Recent posts:</mark></h2>
     <br>
     <ul>
         {% for post in post_list %}
         <li><a href=" {% url 'post_detail' post.pk %}">{{ post.title }} | written by {{ post.author }} </a> <br />
         </li>
         {% endfor %}
-
-
     </ul>
 </div>
-
+<!-- Posts ordered by rating -->
 <div class="container p-5 my-5 border">
-    <h2><mark>Top rated authors</mark></h2>
-    <br>
-    <ul>
-        {% for post in post_list %}
-        <li><a href=" {% url 'post_detail' post.pk %}">{{ post.title }} | written by {{ post.author }} </a> <br />
-        </li>
-        {% endfor %}
-
-
+    {% if top_posts %}
+        <h2><mark>Top rated posts:</mark></h2>
+        <br>
+        <ul>
+            {% for post in top_posts %}
+                <li><a href=" {% url 'post_detail' post.pk %}">{{ post.title }} | rated {{ post.average_rating|floatformat:1 }} </a><br /></li>
+            {% endfor %}
+        {% endif %}
     </ul>
 </div>
 
