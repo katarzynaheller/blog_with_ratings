@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.db.models import Avg
+from django.db.models import Avg, Q
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -10,10 +10,22 @@ from .forms import PostForm, UpdateForm
 
 from .models import Post, Category, Rating
 
+def get_top_rated_posts():
+    top_posts = Post.objects.filter(Q(rating__rating__isnull=False) & Q(rating__rating__gt=0)).annotate(avg_rating=Avg('rating__rating')).order_by('-avg_rating')[:5]
+    return top_posts
 
 class HomeView(ListView):
     model = Post
     template_name = "home.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        top_posts = get_top_rated_posts()
+        context["top_posts"]= top_posts
+        return context
+
+    
+
 
 
 class PostDetailView(DetailView):
@@ -26,16 +38,6 @@ class PostDetailView(DetailView):
         cats = Category.objects.filter(post=post.pk)
         context["cats"] = cats
         return context
-
-
-# def PostDetailView(request, pk):
-#     post = Post.objects.get(id=pk)
-#     cats = post.category.all().values("name", "pk")
-#     context = {
-#         "post": post,
-#         "cats": cats,
-#     }
-#     return render(request, "post_detail.html", context)
 
 
 def RatePostView(request, pk):
